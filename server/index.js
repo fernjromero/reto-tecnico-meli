@@ -5,12 +5,13 @@ const mongoose = require("mongoose");
 require('./models/UrlShorten');
 const mongoURI = "mongodb://localhost/url-shortener";
 const connectOptions = { 
+  //Para corregir los DeprecationWarnings (entra en conflicto con el reconnectTries)
   //useNewUrlParser: true,
   //useUnifiedTopology: true,
   keepAlive: true, 
   reconnectTries: Number.MAX_VALUE 
 }; 
-//Connect to MongoDB 
+//Conexión con Mongo 
 mongoose.Promise = global.Promise; 
 mongoose.connect(mongoURI, connectOptions, (err, db) => 
 { 

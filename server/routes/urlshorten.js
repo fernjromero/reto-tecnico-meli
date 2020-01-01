@@ -2,20 +2,27 @@ const mongoose = require("mongoose");
 const validUrl = require("valid-url");
 const UrlShorten = mongoose.model("UrlShorten");
 const shortid = require("shortid");
-const errorUrl='http://localhost/error';
+
+
 module.exports = app => {
-    //GET API para redireccionar a URL original
-    app.get("/api/item/:code", async (req, res) => {
+  //GET API para redireccionar a URL original
+  app.get("/api/item/:code", async (req, res) => {
     const urlCode = req.params.code;
     const item = await UrlShorten.findOne({ urlCode: urlCode });
     if (item) {
       return res.redirect(item.originalUrl);
     } else {
-      return res.redirect(errorUrl);
+      return res
+        .status(404)
+        .json(
+          "El urlCode es inválido o no existe"
+        );
     }
   });
-    //POST API para crear la url corta en base a la original
-    app.post("/api/item", async (req, res) => {
+
+
+  //POST API para crear la url corta en base a la original
+  app.post("/api/item", async (req, res) => {
     const { originalUrl, shortBaseUrl } = req.body;
     if (validUrl.isUri(shortBaseUrl)) {
     } else {
@@ -56,4 +63,24 @@ module.exports = app => {
   });
 
 
+
+  //GET API para eliminar códigos de la BD
+  app.get("/api/item/remove/:code", async (req, res) => {
+    const urlCode = req.params.code;
+    const item = await UrlShorten.findOne({ urlCode: urlCode });
+    if (item) {
+      await item.deleteOne({urlCode: urlCode});
+      return res
+        .status(200)
+        .json(
+          "El documento con urlCode " + urlCode + " fue eliminado con éxito"
+        );
+    } else {
+      return res
+        .status(404)
+        .json(
+          "El urlCode no existe"
+        );
+    }
+  });
 };
