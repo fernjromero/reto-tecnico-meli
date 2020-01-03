@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require('./models/UrlShorten');
-const mongoURI = "mongodb://localhost/url-shortener";
+const mongoURI = "mongodb://db:27017/url-shortener"; //mongodb://localhost/url-shortener
 const connectOptions = { 
   //Para corregir los DeprecationWarnings (entra en conflicto con el reconnectTries)
   //useNewUrlParser: true,
