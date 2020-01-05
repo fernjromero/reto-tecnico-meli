@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ name: proyecto-meli
+ labels:
+  app: proyecto-meli-263917
+spec:
+ replicas: 3
+ template:
+  metadata:
+   labels:
+    app: proyecto-meli-263917
+  spec:
+   containers:
+    - name: node-app
+      image: gcr.io/proyecto-meli-263917/node-app:0.0.5
+      imagePullPolicy: Always
+      ports:
+       - containerPort: 7000

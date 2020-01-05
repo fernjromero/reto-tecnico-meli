@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: node-app-svc
+spec:
+  selector:
+    app: proyecto-meli-263917
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 7000
+  type: LoadBalancer
