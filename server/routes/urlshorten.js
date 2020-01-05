@@ -6,7 +6,7 @@ const shortid = require("shortid");
 
 module.exports = app => {
   //GET API para redireccionar a URL original
-  app.get("/api/item/:code", async (req, res) => {
+  app.get("/:code", async (req, res) => {
     const urlCode = req.params.code;
     const item = await UrlShorten.findOne({ urlCode: urlCode });
     if (item) {
@@ -15,7 +15,7 @@ module.exports = app => {
       return res
         .status(404)
         .json(
-          "El urlCode es inválido o no existe"
+          "La URL a la que se quiere ser redireccionado no existe o fue eliminada."
         );
     }
   });
@@ -73,7 +73,7 @@ module.exports = app => {
       return res
         .status(200)
         .json(
-          "El documento con urlCode " + urlCode + " fue eliminado con éxito"
+          "La URL '"+ item.shortUrl + "' fue eliminado con éxito." //"El documento con urlCode " + urlCode + " fue eliminado con éxito"
         );
     } else {
       return res
