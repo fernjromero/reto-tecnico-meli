@@ -12,6 +12,6 @@ RUN npm install -g nodemon
 
 RUN apk add yarn
 
-EXPOSE 8000
+EXPOSE 7000
 
 CMD yarn run start
