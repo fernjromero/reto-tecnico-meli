@@ -4,5 +4,4 @@ Pre-requisitos:
 
 - nodejs
 - Yarn
-- Nodemon
-- Mongodb
+- Nodemon (dev dependency)
